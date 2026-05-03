@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ishnoor Bakshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0b1628;
+    --navy-mid: #112240;
+    --navy-light: #1e3a5f;
+    --teal: #1a9e8a;
+    --teal-light: #2dc9af;
+    --teal-glow: rgba(26,158,138,0.15);
+    --green: #4caf7d;
+    --cream: #e8f0ed;
+    --cream-dim: rgba(232,240,237,0.6);
+    --muted: rgba(232,240,237,0.4);
+    --border: rgba(45,201,175,0.2);
+    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-display: 'Syne', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(11,22,40,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--teal-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--cream-dim);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal-light); }
+
+  section { padding: 6rem 2.5rem; max-width: 900px; margin: 0 auto; }
+  section:first-of-type { padding-top: 8rem; }
+
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 5rem;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(26,158,138,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--teal);
+  }
+  .hero-name {
+    font-family: var(--font-serif);
+    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+    font-style: italic;
+  }
+  .hero-name span { color: var(--teal-light); font-style: normal; }
+  .hero-desc {
+    max-width: 540px;
+    color: var(--cream-dim);
+    font-size: 0.88rem;
+    line-height: 1.9;
+    margin: 1.5rem 0 2.5rem;
+  }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
+  .chip {
+    padding: 0.3rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--teal-light);
+    background: var(--teal-glow);
+  }
+  .hero-scroll {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .hero-scroll::after {
+    content: '';
+    display: inline-block;
+    width: 40px; height: 1px;
+    background: var(--muted);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%,100% { width: 40px; opacity: 0.4; }
+    50% { width: 70px; opacity: 1; }
+  }
+
+  .section-header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .section-num { font-size: 0.7rem; color: var(--teal); letter-spacing: 0.15em; min-width: 2rem; }
+  .section-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--cream); letter-spacing: -0.01em; }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--border);
+  }
+  .about-cell { background: var(--navy-mid); padding: 1.5rem; }
+  .about-cell.full { grid-column: 1 / -1; }
+  .about-cell .label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; }
+  .about-cell p { color: var(--cream-dim); font-size: 0.85rem; line-height: 1.85; }
+  .about-cell p em { color: var(--cream); font-style: normal; }
+
+  .timeline { position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 1px; background: var(--border); }
+  .timeline-item { padding: 0 0 2.5rem 2rem; position: relative; cursor: default; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -4px; top: 8px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--navy); border: 2px solid var(--teal);
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .timeline-item:hover::before { background: var(--teal); box-shadow: 0 0 10px var(--teal); }
+  .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; }
+  .timeline-role { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--cream); }
+  .timeline-date { font-size: 0.72rem; letter-spacing: 0.08em; color: var(--teal); white-space: nowrap; }
+  .timeline-org { font-size: 0.8rem; color: var(--teal-light); margin: 0.2rem 0 0.75rem; }
+  .timeline-notes { color: var(--cream-dim); font-size: 0.82rem; }
+  .timeline-notes span { color: var(--cream); }
+
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .project-card {
+    background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s; cursor: default;
+  }
+  .project-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+  .project-card.featured { grid-column: 1 / -1; border-color: rgba(45,201,175,0.4); }
+  .project-icon {
+    font-size: 1.1rem; margin-bottom: 0.75rem;
+    width: 36px; height: 36px; background: var(--teal-glow); border: 1px solid var(--border);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  }
+  .project-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--cream); margin-bottom: 0.5rem; }
+  .project-desc { color: var(--cream-dim); font-size: 0.8rem; line-height: 1.75; margin-bottom: 1rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .project-tag { font-size: 0.68rem; letter-spacing: 0.05em; color: var(--teal); background: rgba(26,158,138,0.08); border: 1px solid rgba(26,158,138,0.25); border-radius: 4px; padding: 0.15rem 0.5rem; }
+
+  .beyond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .beyond-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; }
+  .beyond-glyph { font-family: var(--font-serif); font-size: 2rem; font-style: italic; color: var(--teal-light); margin-bottom: 0.75rem; display: block; line-height: 1; }
+  .beyond-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--cream); margin-bottom: 0.5rem; }
+  .beyond-text { font-size: 0.78rem; color: var(--cream-dim); line-height: 1.7; }
+
+  .journal-container { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .journal-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .journal-header-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--cream); }
+  .new-entry-btn { background: var(--teal-glow); border: 1px solid var(--teal); border-radius: 6px; color: var(--teal-light); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; padding: 0.35rem 0.9rem; cursor: pointer; transition: background 0.2s; }
+  .new-entry-btn:hover { background: rgba(45,201,175,0.2); }
+  .journal-entry { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  .journal-entry:last-child { border-bottom: none; }
+  .journal-entry:hover { background: rgba(45,201,175,0.03); }
+  .entry-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+  .entry-date { font-size: 0.68rem; letter-spacing: 0.1em; color: var(--teal); text-transform: uppercase; }
+  .entry-tag-pill { font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 100px; border: 1px solid var(--border); color: var(--cream-dim); }
+  .entry-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--cream); margin-bottom: 0.4rem; }
+  .entry-body { font-size: 0.8rem; color: var(--cream-dim); line-height: 1.8; }
+  .new-entry-form { padding: 1.5rem; display: none; border-top: 1px solid var(--border); }
+  .new-entry-form.open { display: block; }
+  .form-row { margin-bottom: 0.75rem; }
+  .form-input, .form-textarea { width: 100%; background: var(--navy); border: 1px solid var(--border); border-radius: 6px; color: var(--cream); font-family: var(--font-mono); font-size: 0.82rem; padding: 0.6rem 0.9rem; outline: none; transition: border-color 0.2s; resize: none; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--teal); }
+  .form-textarea { min-height: 80px; }
+  .form-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+  .btn-save { background: var(--teal); border: none; border-radius: 6px; color: var(--navy); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; padding: 0.45rem 1.1rem; cursor: pointer; letter-spacing: 0.05em; }
+  .btn-cancel { background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--cream-dim); font-family: var(--font-mono); font-size: 0.75rem; padding: 0.45rem 1.1rem; cursor: pointer; }
+
+  footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
+  footer a { color: var(--teal); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    section { padding: 4rem 1.25rem; }
+    .about-grid, .projects-grid, .beyond-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: 1; }
+    .hero-name { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">IKB</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#experience">work</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#beyond">beyond</a></li>
+    <li><a href="#journal">journal</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-tag">available for opportunities · nyc</div>
+  <h1 class="hero-name">Ishnoor<br><span>Bakshi.</span></h1>
+  <p class="hero-desc">cs + econ @ barnard columbia. i build things at the intersection of AI, genomics, and finance — and then i go do bhangra. currently researching quantum-informed imaging pipelines by day, figuring out the best ramen spot in manhattan by night.</p>
+  <div class="hero-chips">
+    <span class="chip">machine learning</span>
+    <span class="chip">AI research</span>
+    <span class="chip">python</span>
+    <span class="chip">genomics</span>
+    <span class="chip">private equity</span>
+    <span class="chip">AWS CCP (incoming)</span>
+  </div>
+  <div class="hero-scroll">scroll</div>
+</section>
+
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">the gist</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-cell full">
+      <div class="label">who i am</div>
+      <p>sophomore at barnard columbia (class of '28) studying <em>CS & economics</em>. i came in pre-med, pivoted to CS, and never looked back. i genuinely love what i do — whether that's debugging a pytorch model at midnight or presenting investment decks to partners. i'm also sikh, so community and music (kirtan 🙏) are a big part of me outside the terminal.</p>
+    </div>
+    <div class="about-cell">
+      <div class="label">currently</div>
+      <p><em>AI + quantum research</em> at GILMLab, columbia. building GPU-accelerated imaging pipelines using quantum optical models. it's as wild as it sounds.</p>
+    </div>
+    <div class="about-cell">
+      <div class="label">based in</div>
+      <p><em>new york city</em> — morningside heights specifically, but you'll find me in chinatown, flushing, or basically anywhere with good food.</p>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">what i've done</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="timeline-role">AI + Quantum Research Assistant</span>
+        <span class="timeline-date">Jan 2026 → now</span>
+      </div>
+      <div class="timeline-org">GILMLab · Columbia University</div>
+      <p class="timeline-notes">developing AI pipelines with <span>quantum optical models</span> for multispectral imaging. applying deep learning to non-invasive biological signal detection. translating quantum principles into scalable, GPU-accelerated algorithms.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="timeline-role">AI + Genomics Research Assistant</span>
+        <span class="timeline-date">Sep 2024 → Aug 2025</span>
+      </div>
+      <div class="timeline-org">Children's National Hospital · Silver Spring, MD</div>
+      <p class="timeline-notes">built predictive drug sensitivity models (XGBoost vs. Random Forest) on <span>578 cancer cell lines</span> and 50 drugs using CRISPR-Cas9 data. XGBoost won. published the results.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="timeline-role">Private Equity Intern</span>
+        <span class="timeline-date">Jun → Aug 2025</span>
+      </div>
+      <div class="timeline-org">Singh Capital Partners · Bethesda, MD</div>
+      <p class="timeline-notes">researched redevelopment of a <span>200K+ sq. ft.</span> shopping center. built 3+ investment pitch decks for senior partners on million-dollar acquisition scenarios. financial modeling, ROI analysis — the works.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="timeline-role">Consulting ML Analyst Intern</span>
+        <span class="timeline-date">Jun → Aug 2024</span>
+      </div>
+      <div class="timeline-org">Master Informatix Consulting Inc · Sterling, VA</div>
+      <p class="timeline-notes">supported ML + cybersecurity projects alongside 5+ consultants. helped evaluate <span>$500K+</span> of RFPs and contributed to 10+ technical review meetings.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <span class="timeline-role">Research Presenter</span>
+        <span class="timeline-date">Jun 2020 → Aug 2024</span>
+      </div>
+      <div class="timeline-org">IEEE Junior Conference · Big Sky, MT</div>
+      <p class="timeline-notes"><span>7+ presentations</span> to 100+ peers. won Best Paper Award (distracted driving project) out of 50+ submissions. still the thing i'm most proud of from high school.</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">stuff i've built</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card featured">
+      <div class="project-icon">⬡</div>
+      <div class="project-title">Unraveling Genomics using ML · published in Frontiers Media</div>
+      <p class="project-desc">XGBoost + Random Forest models predicting drug sensitivity from CRISPR gene knockouts across 578 cancer cell lines. identified top predictive genes for drug response. it's in a journal now which still feels surreal.</p>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">XGBoost</span>
+        <span class="project-tag">scikit-learn</span>
+        <span class="project-tag">Google Colab</span>
+        <span class="project-tag">CRISPR data</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">✋</div>
+      <div class="project-title">Sign2Text — ASL Interpreter</div>
+      <p class="project-desc">real-time ASL-to-text using TensorFlow Object Detection + transfer learning on a custom-labeled dataset. built and deployed as a working web app.</p>
+      <div class="project-tags">
+        <span class="project-tag">TensorFlow</span>
+        <span class="project-tag">Python</span>
+        <span class="project-tag">LabelImg</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🚗</div>
+      <div class="project-title">Distracted Driving Detector · IEEE Best Paper</div>
+      <p class="project-desc">5 CNN models trained on 7,400 images to classify distracted vs. focused driving. best paper award out of 50+ submissions.</p>
+      <div class="project-tags">
+        <span class="project-tag">CNN</span>
+        <span class="project-tag">Keras</span>
+        <span class="project-tag">Kaggle</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🌬</div>
+      <div class="project-title">Wind Power Forecasting</div>
+      <p class="project-desc">regression models forecasting turbine output from long-term data. full pipeline: imputation, visualization, and model evaluation (RMSE/MAE/MSE).</p>
+      <div class="project-tags">
+        <span class="project-tag">scikit-learn</span>
+        <span class="project-tag">Pandas</span>
+        <span class="project-tag">Matplotlib</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="beyond">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">beyond the terminal</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="beyond-grid">
+    <div class="beyond-card">
+      <span class="beyond-glyph">ੴ</span>
+      <div class="beyond-title">Kirtan</div>
+      <p class="beyond-text">devotional music is a grounding force for me. being sikh shapes how i show up in community, in work, in everything.</p>
+    </div>
+    <div class="beyond-card">
+      <span class="beyond-glyph">ਭੰ</span>
+      <div class="beyond-title">Bhangra</div>
+      <p class="beyond-text">high-energy punjabi folk dance. it's the best workout i've found and it connects me to culture in the most joyful way possible.</p>
+    </div>
+    <div class="beyond-card">
+      <span class="beyond-glyph">碗</span>
+      <div class="beyond-title">NYC Food Explorer</div>
+      <p class="beyond-text">flushing for xiao long bao, chinatown for soup dumplings, everywhere else for whatever is new. i am always looking for recommendations.</p>
+    </div>
+  </div>
+</section>
+
+<section id="journal">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">journal</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="journal-container">
+    <div class="journal-header">
+      <span class="journal-header-title">thoughts, finds, updates</span>
+      <button class="new-entry-btn" id="toggleForm">+ new entry</button>
+    </div>
+    <div class="journal-entries" id="entryList">
+      <div class="journal-entry">
+        <div class="entry-meta">
+          <span class="entry-date">may 2026</span>
+          <span class="entry-tag-pill">research</span>
+        </div>
+        <div class="entry-title">quantum imaging is actually insane</div>
+        <p class="entry-body">started my GILMLab rotation and the stuff we're doing with quantum fluorescence models is genuinely blowing my mind. never thought i'd be writing GPU-accelerated algorithms that model light-matter interactions but here we are. also had the best khao soi in jackson heights this week — coincidence? i think not.</p>
+      </div>
+      <div class="journal-entry">
+        <div class="entry-meta">
+          <span class="entry-date">jan 2026</span>
+          <span class="entry-tag-pill">reflection</span>
+        </div>
+        <div class="entry-title">my paper got published in frontiers media</div>
+        <p class="entry-body">the genomics paper from children's national is officially out. the moment i saw my name on the frontiers site i had to sit down. this is what two semesters of debugging pytorch at 2am looks like. worth it.</p>
+      </div>
+    </div>
+    <div class="new-entry-form" id="newEntryForm">
+      <div class="form-row">
+        <input class="form-input" id="entryTitle" placeholder="title" type="text" />
+      </div>
+      <div class="form-row">
+        <input class="form-input" id="entryTag" placeholder="tag (e.g. research, life, food)" type="text" />
+      </div>
+      <div class="form-row">
+        <textarea class="form-textarea" id="entryBody" placeholder="what's on your mind..."></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn-cancel" id="cancelEntry">cancel</button>
+        <button class="btn-save" id="saveEntry">save entry</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>ishnoor bakshi · cs & econ @ barnard columbia · <a href="mailto:ishnoorbakshi@gmail.com">ishnoorbakshi@gmail.com</a></p>
+  <p style="margin-top: 0.5rem;">made with intention, not a template.</p>
+</footer>
+
+<script>
+const toggleBtn = document.getElementById('toggleForm');
+const form = document.getElementById('newEntryForm');
+const cancelBtn = document.getElementById('cancelEntry');
+const saveBtn = document.getElementById('saveEntry');
+const entryList = document.getElementById('entryList');
+
+toggleBtn.addEventListener('click', () => {
+  form.classList.toggle('open');
+  toggleBtn.textContent = form.classList.contains('open') ? '✕ close' : '+ new entry';
+});
+
+cancelBtn.addEventListener('click', () => {
+  form.classList.remove('open');
+  toggleBtn.textContent = '+ new entry';
+  clearForm();
+});
+
+saveBtn.addEventListener('click', () => {
+  const title = document.getElementById('entryTitle').value.trim();
+  const tag = document.getElementById('entryTag').value.trim();
+  const body = document.getElementById('entryBody').value.trim();
+  if (!title || !body) return;
+  const now = new Date();
+  const month = now.toLocaleString('default', { month: 'long' }).toLowerCase();
+  const year = now.getFullYear();
+  const entry = document.createElement('div');
+  entry.className = 'journal-entry';
+  entry.innerHTML = `
+    <div class="entry-meta">
+      <span class="entry-date">${month} ${year}</span>
+      ${tag ? `<span class="entry-tag-pill">${tag}</span>` : ''}
+    </div>
+    <div class="entry-title">${title}</div>
+    <p class="entry-body">${body}</p>
+  `;
+  entryList.insertBefore(entry, entryList.firstChild);
+  form.classList.remove('open');
+  toggleBtn.textContent = '+ new entry';
+  clearForm();
+});
+
+function clearForm() {
+  document.getElementById('entryTitle').value = '';
+  document.getElementById('entryTag').value = '';
+  document.getElementById('entryBody').value = '';
+}
+</script>
+</body>
+</html>
